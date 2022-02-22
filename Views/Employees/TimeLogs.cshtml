@@ -1,0 +1,51 @@
+﻿@model  EmployeeTimeLog.Models.EmployeeTimeLogDTO
+
+@{
+    ViewData["Title"] = "TimeLogs";
+    var emp = Model.Employee;
+    var name = emp.LastName + ", "+ emp.FirstName;
+}
+
+<h1>Time Logs of @name</h1>
+
+<p>
+    <a asp-action="CreateTimeInLog">Log In</a>
+    
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>              
+                Time In
+            </th>
+            <th>
+              Time Out
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.TimeLogs) {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeIn) 
+              
+                
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeOut)
+            </td>
+            <td>
+                @if (item.TimeOut == null)
+                {
+                    <a asp-action="CreateTimeOutLog" asp-route-id="@item.Id">Log Out</a> <span>|</span>
+                }
+                 
+                <a asp-action="DeleteTime" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
